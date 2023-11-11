@@ -9,13 +9,13 @@ import { KeycloakService } from './core/services/keycloak.service';
 export class AppComponent implements OnInit {
   title = 'myapp';
 
-  private isAuthReady = false;
+  protected isAuthReady = false;
 
   constructor(private keycloakService: KeycloakService) {};
 
-  ngOnInit(): void {
-    console.log('APPINIT')
+  async ngOnInit(): Promise<void> {
+    await this.keycloakService.checkIfRedirectedFromKeycloak();
 
-    this.keycloakService.checkParams();
+    this.isAuthReady = true;
   }
 }

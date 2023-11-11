@@ -43,7 +43,7 @@ export class KeycloakService {
   }
 
 
-  async checkParams(): Promise<void> {
+  async checkIfRedirectedFromKeycloak(): Promise<void> {
     const hash = window.location.href.split('#')[1];
 
     if (!hash) return;
