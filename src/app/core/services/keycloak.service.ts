@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { v4 as uuid } from 'uuid';
 
@@ -8,14 +7,56 @@ import { v4 as uuid } from 'uuid';
 })
 export class KeycloakService {
 
-  constructor() {}
+  constructor() { }
 
-  async checkParams(): Promise<boolean> {
+  private computeRefreshTokensTimeout(expiresInSec: number): number {
+    // todo: config
+    const timeoutBuffer = 20 * 1000;
+
+    if (!expiresInSec) throw new Error('could not read token expiration timestamp');
+
+    return (expiresInSec * 1000) - timeoutBuffer;
+  }
+
+  private fetchTokensAndStoreThem = async (formData: URLSearchParams) => {
+    const { url: kUrl, realm: kRealm, clientId: kClientId } = environment.keycloak;
+
+    const url = `${kUrl}/realms/${kRealm}/protocol/openid-connect/token`;
+
+    const { access_token: accessToken, refresh_token: refreshToken, id_token: idToken, expires_in: expiresIn } = await (await fetch(
+      url,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: formData,
+    })).json();
+
+    // const authStore = useAuthStore();
+
+    // authStore.setAccessToken(accessToken);
+    // authStore.setRefreshToken(refreshToken);
+    // authStore.setIDToken(idToken);
+
+    return { accessToken, refreshToken, idToken, expiresIn };
+  }
+
+
+  async checkParams(): Promise<void> {
     const hash = window.location.href.split('#')[1];
 
-    if (hash) console.log('hash exists', hash);
+    if (!hash) return;
 
-    return true;
+    const params = hash.split('&').reduce((p: { [key: string]: string }, c: string) => {
+      const [key, value] = c.split('=');
+      return { ...p, [key]: value };
+    }, {});
+
+    if (this.isLoginStateUUIDValid(params['state'])) {
+      // todo
+      await this.getTokensByCode(params['code'], 'http://localhost:4200', true);
+    }
   }
 
   isLoginStateUUIDValid(stateUUID: string) {
@@ -33,6 +74,47 @@ export class KeycloakService {
 
     window.sessionStorage.setItem('login_state_uuid', stateUUID);
     window.location.replace(url);
+  }
+
+  async getTokensByCode(code: string, redirectURI: string, isRefreshTokensEnabled = true) {
+    const { clientId } = environment.keycloak;
+
+    const formData = new URLSearchParams();
+
+    formData.append('grant_type', 'authorization_code');
+    formData.append('client_id', clientId);
+    formData.append('code', code);
+    formData.append('redirect_uri', encodeURI(redirectURI));
+
+    const { expiresIn, refreshToken } = await this.fetchTokensAndStoreThem(formData);
+
+    if (isRefreshTokensEnabled) {
+      const timeout = this.computeRefreshTokensTimeout(expiresIn);
+
+      setTimeout(() => {
+        this.getTokensByRefreshToken(refreshToken, true);
+      }, timeout);
+    }
+  }
+
+  async getTokensByRefreshToken(token: string, isRefreshTokensEnabled = true) {
+    const { clientId } = environment.keycloak;
+
+    const formData = new URLSearchParams();
+
+    formData.append('grant_type', 'refresh_token');
+    formData.append('client_id', clientId);
+    formData.append('refresh_token', token);
+
+    const { expiresIn, refreshToken } = await this.fetchTokensAndStoreThem(formData);
+
+    if (isRefreshTokensEnabled) {
+      const timeout = this.computeRefreshTokensTimeout(expiresIn);
+
+      setTimeout(() => {
+        this.getTokensByRefreshToken(refreshToken, true);
+      }, timeout);
+    }
   }
 
 }
