@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { v4 as uuid } from 'uuid';
+import { select, Store } from '@ngrx/store';
+import * as AuthActions from 'src/app/core/store/auth/actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class KeycloakService {
 
-  constructor() { }
+  constructor(private store: Store) { }
 
   private computeRefreshTokensTimeout(expiresInSec: number): number {
     // todo: config
@@ -23,6 +25,8 @@ export class KeycloakService {
 
     const url = `${kUrl}/realms/${kRealm}/protocol/openid-connect/token`;
 
+    this.store.dispatch(AuthActions.getTokens());
+
     const { access_token: accessToken, refresh_token: refreshToken, id_token: idToken, expires_in: expiresIn } = await (await fetch(
       url,
       {
@@ -33,11 +37,8 @@ export class KeycloakService {
         body: formData,
     })).json();
 
-    // const authStore = useAuthStore();
-
-    // authStore.setAccessToken(accessToken);
-    // authStore.setRefreshToken(refreshToken);
-    // authStore.setIDToken(idToken);
+    console.log(accessToken);
+    this.store.dispatch(AuthActions.getTokensSuccess({ accessToken, refreshToken, idToken }));
 
     return { accessToken, refreshToken, idToken, expiresIn };
   }
