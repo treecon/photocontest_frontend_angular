@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { v4 as uuid } from 'uuid';
 
@@ -9,7 +10,21 @@ export class KeycloakService {
 
   constructor() {}
 
-  redirectToKeycloakLoginPage(redirectURI: string = '') {
+  async checkParams(): Promise<boolean> {
+    const hash = window.location.href.split('#')[1];
+
+    if (hash) console.log('hash exists', hash);
+
+    return true;
+  }
+
+  isLoginStateUUIDValid(stateUUID: string) {
+    const isValid = stateUUID === window.sessionStorage.getItem('login_state_uuid');
+    window.sessionStorage.removeItem('login_state_uuid');
+    return isValid;
+  }
+
+  redirectToKeycloakLoginPage(redirectURI: string = 'http://localhost:4200') {
     const stateUUID = uuid();
 
     const { url: kUrl, realm: kRealm, clientId: kClientId } = environment.keycloak;
