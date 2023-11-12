@@ -37,7 +37,6 @@ export class KeycloakService {
         body: formData,
     })).json();
 
-    console.log(accessToken);
     this.store.dispatch(AuthActions.getTokensSuccess({ accessToken, refreshToken, idToken }));
 
     return { accessToken, refreshToken, idToken, expiresIn };

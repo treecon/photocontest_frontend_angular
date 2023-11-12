@@ -1,0 +1,17 @@
+<div class="my-5 mx-5">
+  <form class="flex flex-col" [formGroup]="uploadPhotoForm" (submit)="submit()">
+    <input class="ng-hide" id="input-file-id" multiple type="file" />
+    <label for="input-file-id" class="md-button md-raised md-primary">Choose Files</label>
+
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label> E-mail
+      </mat-label>
+      <input matInput formControlName="photo" required>
+      <!-- <mat-error *ngIf="uploadPhotoForm.controls.email.touched && uploadPhotoForm.controls.email.invalid"> -->
+        <!-- <span *ngIf="uploadPhotoForm.controls.email.errors.required">This field is mandatory.</span> -->
+        <!-- <span *ngIf="uploadPhotoForm.controls.email.errors.pattern">This field is invalid.</span> -->
+      <!-- </mat-error> -->
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Log In</button>
+  </form>
+</div>

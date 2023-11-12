@@ -1,1 +1,6 @@
-<p>home works!</p>
+<div class="mx-3 my-3">
+    <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+    <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+</div>
+
+{{ photos | async | json }}

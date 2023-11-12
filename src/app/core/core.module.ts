@@ -4,6 +4,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { KeycloakService } from './services/keycloak.service';
 import { Store, StoreModule } from '@ngrx/store';
 import { reducers } from './store/auth/reducers';
+import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
@@ -11,6 +12,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
   declarations: [],
   imports: [
     CommonModule,
+    HttpClientModule,
     StoreModule.forFeature('auth', reducers),
     StoreModule.forRoot(),
   ],
