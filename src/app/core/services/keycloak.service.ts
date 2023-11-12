@@ -56,7 +56,7 @@ export class KeycloakService {
 
     if (this.isLoginStateUUIDValid(params['state'])) {
       // todo
-      await this.getTokensByCode(params['code'], 'http://localhost:4200', true);
+      await this.getTokensByCode(params['code'], 'http://localhost:4200/dashboard', true);
     }
   }
 
@@ -66,7 +66,9 @@ export class KeycloakService {
     return isValid;
   }
 
-  redirectToKeycloakLoginPage(redirectURI: string = 'http://localhost:4200') {
+  redirectToKeycloakLoginPage(redirectURI: string = 'http://localhost:4200/dashboard') {
+    if (window.location.hash.includes('session_state')) return;
+
     const stateUUID = uuid();
 
     const { url: kUrl, realm: kRealm, clientId: kClientId } = environment.keycloak;
