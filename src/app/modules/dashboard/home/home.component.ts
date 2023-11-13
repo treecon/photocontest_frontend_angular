@@ -11,13 +11,15 @@ import { Photo } from 'src/app/core/models/photos/photo';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  photos: Observable<Photo[]> = new Observable<Photo[]>();
+  // photos: Observable<Photo[]> = new Observable<Photo[]>();
+  photos: Photo[] | null = null;
 
   constructor(private photoService: PhotosService, public dialog: MatDialog) {}
 
   loadPhotos(): void {
-    this.photos = this.photoService.getPhotos()
+    this.photoService.getPhotos()
       .pipe(map(x => x.result))
+      .subscribe((x) => this.photos = x)
   }
 
   ngOnInit(): void {

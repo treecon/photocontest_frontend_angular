@@ -3,9 +3,9 @@
     <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
 </div>
 
-<div class="grid grid-cols-2 md:grid-cols-4">
+<div class="grid grid-cols-2 md:grid-cols-4" *ngIf="photos">
     <app-photo-card
-        *ngFor="let photo of photos | async; trackBy: trackByPhotoID"
+        *ngFor="let photo of photos; trackBy: trackByPhotoID"
         [data]="photo"
         (voted)="loadPhotos()"
     ></app-photo-card>
