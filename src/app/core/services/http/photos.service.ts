@@ -22,8 +22,6 @@ export class PhotosService {
     // formData.append('photo', new Blob([photo]), filename);
     formData.append('photo', photo);
 
-    console.log(formData);
-
     return this.httpClient.post<ServerResponse<null>>('http://localhost:3000/api/photo', formData)
       .pipe(take(1));
   }

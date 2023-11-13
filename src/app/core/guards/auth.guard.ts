@@ -12,27 +12,6 @@ import { AppState } from '../models/state';
 export class AuthGuard implements CanActivate {
   constructor(private keycloakService: KeycloakService, private store: Store<AppState>) {}
 
-  // canActivate(
-  //   route: ActivatedRouteSnapshot,
-  //   state: RouterStateSnapshot
-  // ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-  //   if (route.data['requiresAuth']) {
-  //     this.store.pipe(
-  //       select(tokensSelector),
-  //       take(1)
-  //     ).subscribe((x) => {
-  //       const isLoggedIn = !!x.accessToken;
-
-  //       if (isLoggedIn) return true;
-
-  //       this.keycloakService.redirectToKeycloakLoginPage();
-  //       return false;
-  //     });
-  //   }
-
-  //   return true;
-  // }
-
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

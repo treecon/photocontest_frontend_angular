@@ -25,9 +25,7 @@ export class KeycloakService {
 
     const url = `${kUrl}/realms/${kRealm}/protocol/openid-connect/token`;
 
-    console.log('CHECK4')
     this.store.dispatch(AuthActions.getTokens());
-    console.log('CHECK5')
 
     const { access_token: accessToken, refresh_token: refreshToken, id_token: idToken, expires_in: expiresIn } = await (await fetch(
       url,
@@ -39,17 +37,14 @@ export class KeycloakService {
         body: formData,
     })).json();
 
-    console.log('DISPATCH')
     this.store.dispatch(AuthActions.getTokensSuccess({ accessToken, refreshToken, idToken }));
     this.store.dispatch(AuthActions.setInitialCheckCompleted());
-    console.log('DISPEND');
 
     return { accessToken, refreshToken, idToken, expiresIn };
   }
 
 
   async checkIfRedirectedFromKeycloak(): Promise<void> {
-    console.log('CHECKK')
     const hash = window.location.href.split('#')[1];
 
     if (!hash) {
@@ -64,7 +59,6 @@ export class KeycloakService {
 
     if (this.isLoginStateUUIDValid(params['state'])) {
       // todo
-      console.log('CHECK2');
       await this.getTokensByCode(params['code'], 'http://localhost:4200/dashboard', true);
     } else {
       this.store.dispatch(AuthActions.setInitialCheckCompleted());
@@ -102,7 +96,6 @@ export class KeycloakService {
     formData.append('code', code);
     formData.append('redirect_uri', encodeURI(redirectURI));
 
-    console.log('CHECK3')
     const { expiresIn, refreshToken } = await this.fetchTokensAndStoreThem(formData);
 
     if (isRefreshTokensEnabled) {

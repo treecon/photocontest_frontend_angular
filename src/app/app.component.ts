@@ -15,7 +15,6 @@ export class AppComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.keycloakService.checkIfRedirectedFromKeycloak();
-    console.log('NOW ROUTE');
     this.isAuthReady = true;
   }
 }

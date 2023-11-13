@@ -13,7 +13,6 @@ export const initialState: AuthState = {
 export const reducers = createReducer(
   initialState,
   on(AuthActions.setInitialCheckCompleted, (state) => {
-    console.log('RECUU')
     return {
       ...state,
       isInitialCheckDone: true,

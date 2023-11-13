@@ -36,22 +36,5 @@ export class HomeComponent implements OnInit {
     const file = files[0];
 
     this.photoService.submitPhoto(file, '').subscribe();
-
-    // todo: change querySelector
-    // const inputNode: any = document.querySelector('#file');
-  
-    // if (typeof (FileReader) !== 'undefined') {
-    //   const reader = new FileReader();
-  
-    //   reader.onload = (e: any) => {
-    //     const photo: ArrayBuffer = e.target.result;
-
-    //     console.log(e);
-
-    //     this.photoService.submitPhoto(photo, '').subscribe();
-    //   };
-  
-    //   reader.readAsArrayBuffer(inputNode.files[0]);
-    // }
   }
 }

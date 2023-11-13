@@ -23,7 +23,6 @@ export class LandingPageComponent {
   }
 
   getStoreItem() {
-    console.log(1)
     // console.log(this.tokens ? lastValueFrom(this.tokens) : null);
   }
 }
