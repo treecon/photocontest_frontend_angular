@@ -3,6 +3,7 @@ import { AuthState } from '../../models/state';
 import * as AuthActions from './actions';
 
 export const initialState: AuthState = {
+  isInitialCheckDone: false,
   isLoading: false,
   accessToken: '',
   refreshToken: '',
@@ -11,6 +12,13 @@ export const initialState: AuthState = {
 
 export const reducers = createReducer(
   initialState,
+  on(AuthActions.setInitialCheckCompleted, (state) => {
+    console.log('RECUU')
+    return {
+      ...state,
+      isInitialCheckDone: true,
+    }
+  }),
   on(AuthActions.getTokens, (state) => ({
     ...state,
     isLoading: true,

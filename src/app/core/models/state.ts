@@ -1,4 +1,5 @@
 export interface AuthState {
+    isInitialCheckDone: boolean,
     isLoading: boolean,
     accessToken: string,
     refreshToken: string,

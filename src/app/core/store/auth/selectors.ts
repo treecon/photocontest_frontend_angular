@@ -10,5 +10,5 @@ export const isLoadingSelector = createSelector(
 
 export const tokensSelector = createSelector(
   selectFeature,
-  (state) => ({ accessToken: state.accessToken, refreshToken: state.refreshToken, idToken: state.idToken })
+  (state) => ({ accessToken: state.accessToken, refreshToken: state.refreshToken, idToken: state.idToken, isInitialCheckDone: state.isInitialCheckDone })
 );

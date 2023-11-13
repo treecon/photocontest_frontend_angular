@@ -1,5 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 
+export const setInitialCheckCompleted = createAction('[Auth] Set initial check completed');
+
 export const getTokens = createAction('[Auth] Get tokens');
 
 export const getTokensSuccess = createAction(
