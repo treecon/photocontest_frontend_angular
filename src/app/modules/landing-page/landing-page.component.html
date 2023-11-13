@@ -1,13 +1,8 @@
-<div class="flex justify-center my-5">
-  <app-photo-card [size]="'lg'"></app-photo-card>
-</div>
-<div class="grid grid-cols-2 md:flex gap-3">
-  <app-photo-card></app-photo-card>
-  <app-photo-card></app-photo-card>
-  <app-photo-card></app-photo-card>
-  <app-photo-card></app-photo-card>
-</div>
-<button (click)="getStoreItem()">get store item</button>
-<div>
-  <!-- tokens: {{tokens}} -->
+<div *ngIf="photos">
+  <div class="flex justify-center my-5">
+    <app-photo-card [size]="'lg'" [data]="photos[0]"></app-photo-card>
+  </div>
+  <div class="grid grid-cols-2 md:flex gap-3">
+    <app-photo-card *ngFor="let photo of filteredPhotosForBottomSection(photos)" [data]="photo"></app-photo-card>
+  </div>
 </div>

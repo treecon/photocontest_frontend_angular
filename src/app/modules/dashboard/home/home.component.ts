@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   constructor(private photoService: PhotosService, public dialog: MatDialog) {}
 
   loadPhotos(): void {
-    this.photoService.getPhotos()
+    this.photoService.getPhotos(20)
       .pipe(map(x => x.result))
       .subscribe((x) => this.photos = x)
   }

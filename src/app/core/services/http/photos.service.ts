@@ -11,8 +11,10 @@ export class PhotosService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getPhotos() {
-    return this.httpClient.get<ServerResponse<Photo[]>>('http://localhost:3000/api/photo')
+  getPhotos(size: number, isPublic = false) {
+    const url = isPublic ? `http://localhost:3000/api/photo/public?size=${size}` : `http://localhost:3000/api/photo?size=${size}`;
+
+    return this.httpClient.get<ServerResponse<Photo[]>>(url)
       .pipe(take(1));
   }
 
