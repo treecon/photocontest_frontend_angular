@@ -1,6 +1,10 @@
 <div class="mx-3 my-3">
     <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
-    <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+    <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
+</div>
+
+<div class="grid grid-cols-2 md:grid-cols-4">
+    <app-photo-card [data]="photo" *ngFor="let photo of photos | async"></app-photo-card>
 </div>
 
 {{ photos | async | json }}

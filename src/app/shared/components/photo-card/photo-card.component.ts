@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Photo } from 'src/app/core/models/photos/photo';
 
 @Component({
   selector: 'app-photo-card',
@@ -7,4 +8,5 @@ import { Component, Input } from '@angular/core';
 })
 export class PhotoCardComponent {
   @Input() size: 'md' | 'lg' = 'md';
+  @Input() data!: Photo;
 }

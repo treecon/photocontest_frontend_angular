@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PhotosService } from 'src/app/core/services/http/photos.service';
 import { ModalUploadPhotoComponent } from './components/modal-upload-photo/modal-upload-photo.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable, map } from 'rxjs';
+import { Photo } from 'src/app/core/models/photos/photo';
 
 @Component({
   selector: 'app-home',
@@ -9,12 +11,13 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  photos: any;
+  photos: Observable<Photo[]> = new Observable<Photo[]>();
 
   constructor(private photoService: PhotosService, public dialog: MatDialog) {}
 
   loadPhotos(): void {
     this.photos = this.photoService.getPhotos()
+      .pipe(map(x => x.result))
   }
 
   ngOnInit(): void {
@@ -25,22 +28,30 @@ export class HomeComponent implements OnInit {
   //   this.dialog.open(ModalUploadPhotoComponent);
   // }
 
-  onFileSelected() {
+  onFileSelected(e: Event) {
+
+    const files = (e.target as HTMLInputElement).files;
+    if (!files) return;
+
+    const file = files[0];
+
+    this.photoService.submitPhoto(file, '').subscribe();
+
     // todo: change querySelector
-    const inputNode: any = document.querySelector('#file');
+    // const inputNode: any = document.querySelector('#file');
   
-    if (typeof (FileReader) !== 'undefined') {
-      const reader = new FileReader();
+    // if (typeof (FileReader) !== 'undefined') {
+    //   const reader = new FileReader();
   
-      reader.onload = (e: any) => {
-        const photo: ArrayBuffer = e.target.result;
+    //   reader.onload = (e: any) => {
+    //     const photo: ArrayBuffer = e.target.result;
 
-        console.log(photo);
+    //     console.log(e);
 
-        this.photoService.submitPhoto(photo).subscribe();
-      };
+    //     this.photoService.submitPhoto(photo, '').subscribe();
+    //   };
   
-      reader.readAsArrayBuffer(inputNode.files[0]);
-    }
+    //   reader.readAsArrayBuffer(inputNode.files[0]);
+    // }
   }
 }
