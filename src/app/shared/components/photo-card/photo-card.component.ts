@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { Photo } from 'src/app/core/models/photos/photo';
+import { PhotosService } from 'src/app/core/services/http/photos.service';
 
 @Component({
   selector: 'app-photo-card',
@@ -9,4 +10,13 @@ import { Photo } from 'src/app/core/models/photos/photo';
 export class PhotoCardComponent {
   @Input() size: 'md' | 'lg' = 'md';
   @Input() data!: Photo;
+
+  @Output() voted = new EventEmitter();
+
+  constructor(private photoService: PhotosService) { }
+
+  vote(type: 'UP' | 'DOWN') {
+    this.photoService.vote(this.data.id, type)
+      .subscribe(x => this.voted.emit());
+  }
 }

@@ -25,4 +25,9 @@ export class PhotosService {
     return this.httpClient.post<ServerResponse<null>>('http://localhost:3000/api/photo', formData)
       .pipe(take(1));
   }
+
+  vote(photoID: string, type: 'UP' | 'DOWN') {
+    return this.httpClient.post<ServerResponse<null>>(`http://localhost:3000/api/photo/${photoID}/${type.toLowerCase()}`, null)
+      .pipe(take(1));
+  }
 }

@@ -10,14 +10,22 @@
   <mat-card-content>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-mini-fab color="basic" aria-label="Upvote">
-      <mat-icon>arrow_upward</mat-icon>
-    </button>
-    <button class="ml-1" mat-mini-fab color="basic" aria-label="Downvote">
-      <mat-icon>arrow_downward</mat-icon>
-    </button>
-    <span class="ml-2">
-      Score: 4
-    </span>
+    <div class="w-full flex items-center justify-between">
+      <div class="flex items-center">
+        <button [disabled]="data ? data.isVoted : false" (click)="vote('UP')" mat-mini-fab color="basic" aria-label="Upvote">
+          <mat-icon>arrow_upward</mat-icon>
+        </button>
+        <button [disabled]="data ? data.isVoted : false" (click)="vote('DOWN')" class="ml-1" mat-mini-fab color="basic" aria-label="Downvote">
+          <mat-icon>arrow_downward</mat-icon>
+        </button>
+        <span class="ml-2">
+          Score: {{ data ? data.score : 0 }}
+        </span>
+      </div>
+      <small *ngIf="data && data.isVoted" class="text-gray-600 flex items-center">
+        You have voted for this photo
+        <mat-icon class="ml-1" [color]="'primary'">check</mat-icon>
+      </small>
+    </div>
   </mat-card-actions>
 </mat-card>

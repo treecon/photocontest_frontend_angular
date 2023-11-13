@@ -4,7 +4,11 @@
 </div>
 
 <div class="grid grid-cols-2 md:grid-cols-4">
-    <app-photo-card [data]="photo" *ngFor="let photo of photos | async"></app-photo-card>
+    <app-photo-card
+        *ngFor="let photo of photos | async; trackBy: trackByPhotoID"
+        [data]="photo"
+        (voted)="loadPhotos()"
+    ></app-photo-card>
 </div>
 
-{{ photos | async | json }}
+<!-- {{ photos | async | json }} -->

@@ -35,6 +35,11 @@ export class HomeComponent implements OnInit {
 
     const file = files[0];
 
-    this.photoService.submitPhoto(file, '').subscribe();
+    this.photoService.submitPhoto(file, '')
+      .subscribe(x => this.loadPhotos());
+  }
+
+  trackByPhotoID(index: number, photo: Photo) {
+    return photo.id;
   }
 }
