@@ -5,8 +5,8 @@
 
 <div class="mx-3 my-10">
     <mat-card class="py-5">
-        <div class="grid grid-cols-2">
-            <div>
+        <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class="border-r-0 md:border-r-2 border-r-gray-200">
                 <mat-card-header class="flex justify-center text-center">
                     <mat-card-title>View results</mat-card-title>
                     <mat-card-subtitle>Check which photo is leading!</mat-card-subtitle>
@@ -15,7 +15,7 @@
                     <button class="mt-5" color="primary" mat-raised-button [routerLink]="''">View</button>
                 </mat-card-actions>
             </div>
-            <div>
+            <div class="mt-10 md:mt-0">
                 <mat-card-header class="flex justify-center text-center">
                     <mat-card-title>Participate!</mat-card-title>
                     <mat-card-subtitle>Upload your own photo</mat-card-subtitle>
