@@ -30,7 +30,7 @@
 </div>
 <mat-progress-bar mode="indeterminate" *ngIf="photos === null"></mat-progress-bar>
 
-<div class="grid grid-cols-2 md:grid-cols-4 mx-3 gap-x-3 gap-y-5 pb-5" *ngIf="photos">
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-3 gap-x-3 gap-y-5 pb-5" *ngIf="photos">
     <app-photo-card
         *ngFor="let photo of photos;"
         [data]="photo" [isWithActions]="true"
