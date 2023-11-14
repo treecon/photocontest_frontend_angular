@@ -9,7 +9,7 @@ import { PhotosService } from 'src/app/core/services/http/photos.service';
 })
 export class PhotoCardComponent {
   @Input() size: 'md' | 'lg' = 'md';
-  @Input() isWinningPhoto = false;
+  @Input() contestPosition: number | null = null;
   @Input() isWithActions: boolean = false;
   @Input() data!: Photo;
 

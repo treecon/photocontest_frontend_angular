@@ -5,14 +5,27 @@
 
 <div class="mx-3 my-10">
     <mat-card class="py-5">
-        <mat-card-header class="flex justify-center text-center">
-            <mat-card-title>Participate!</mat-card-title>
-            <mat-card-subtitle>Upload your own photo</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-actions class="flex justify-center">
-            <button class="mt-5" color="primary" type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
-            <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
-        </mat-card-actions>
+        <div class="grid grid-cols-2">
+            <div>
+                <mat-card-header class="flex justify-center text-center">
+                    <mat-card-title>View results</mat-card-title>
+                    <mat-card-subtitle>Check which photo is leading!</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-actions class="flex justify-center">
+                    <button class="mt-5" color="primary" mat-raised-button [routerLink]="''">View</button>
+                </mat-card-actions>
+            </div>
+            <div>
+                <mat-card-header class="flex justify-center text-center">
+                    <mat-card-title>Participate!</mat-card-title>
+                    <mat-card-subtitle>Upload your own photo</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-actions class="flex justify-center">
+                    <button class="mt-5" color="primary" type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+                    <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
+                </mat-card-actions>
+            </div>
+        </div>
     </mat-card>
 </div>
 
