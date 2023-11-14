@@ -1,16 +1,16 @@
 <mat-progress-bar mode="indeterminate" *ngIf="photos === null"></mat-progress-bar>
 <div *ngIf="photos">
-  <div class="grid grid-cols-2 my-10">
+  <div class="grid grid-cols-1 md:grid-cols-2 my-10 mx-5 md:mx-0">
     <div class="flex flex-col gap-3 items-center justify-center">
       <span class="text-4xl">Welcome to PhotoContest!</span>
       <span class="text-xl text-gray-500">Our dummy app to test Angular features</span>
       <button class="mt-5" mat-button [color]="'primary'" [routerLink]="'/dashboard'">Vote!</button>
     </div>
     <div class="flex justify-center">
-      <app-photo-card [size]="'lg'" [contestPosition]="1" [data]="photos[0]"></app-photo-card>
+      <app-photo-card class="max-w-full" [size]="'lg'" [contestPosition]="1" [data]="photos[0]"></app-photo-card>
     </div>
   </div>
   <div class="grid grid-cols-2 md:grid-cols-4 mx-5 pb-10 gap-5">
-    <app-photo-card [contestPosition]="i + 2" class="w-full" *ngFor="let photo of filteredPhotosForBottomSection(photos); index as i" [data]="photo"></app-photo-card>
+    <app-photo-card [contestPosition]="i + 2" *ngFor="let photo of filteredPhotosForBottomSection(photos); index as i" [data]="photo"></app-photo-card>
   </div>
 </div>
