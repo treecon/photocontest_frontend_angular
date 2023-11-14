@@ -14,6 +14,8 @@ export class HomeComponent implements OnInit {
   // photos: Observable<Photo[]> = new Observable<Photo[]>();
   photos: Photo[] | null = null;
 
+  isUploading = false;
+
   constructor(private photoService: PhotosService, public dialog: MatDialog) {}
 
   loadPhotos(): void {
@@ -26,19 +28,26 @@ export class HomeComponent implements OnInit {
     this.loadPhotos();
   }
 
-  // openModalUploadPhoto() {
-  //   this.dialog.open(ModalUploadPhotoComponent);
-  // }
+  openModalUploadPhoto() {
+    this.dialog.open(ModalUploadPhotoComponent);
+  }
 
-  onFileSelected(e: Event) {
+  submitPhoto(e: Event) {
 
     const files = (e.target as HTMLInputElement).files;
     if (!files) return;
 
     const file = files[0];
 
+    this.isUploading = true;
+
     this.photoService.submitPhoto(file, '')
-      .subscribe(x => this.loadPhotos());
+      .subscribe(x => {
+        
+        this.loadPhotos();
+        this.openModalUploadPhoto();
+        this.isUploading = false;
+      });
   }
 
   trackByPhotoID(index: number, photo: Photo) {

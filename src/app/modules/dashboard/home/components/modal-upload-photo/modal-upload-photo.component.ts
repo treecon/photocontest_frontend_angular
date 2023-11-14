@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-modal-upload-photo',
@@ -7,13 +7,9 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
   styleUrls: ['./modal-upload-photo.component.scss']
 })
 export class ModalUploadPhotoComponent {
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(public dialogRef: MatDialogRef<null>) { }
 
-  uploadPhotoForm = this.formBuilder.group({
-    photo: [null, Validators.required],
-  })
-
-  submit() {
-    console.log('submit');
+  close() {
+    this.dialogRef.close();
   }
 }

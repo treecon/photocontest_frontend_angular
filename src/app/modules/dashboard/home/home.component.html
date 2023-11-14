@@ -21,8 +21,8 @@
                     <mat-card-subtitle>Upload your own photo</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-actions class="flex justify-center">
-                    <button class="mt-5" color="primary" type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
-                    <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
+                    <button [disabled]="isUploading" class="mt-5" color="primary" type="button" mat-raised-button (click)="fileInput.click()">{{ isUploading ? 'Uploading...' : 'Choose file' }}</button>
+                    <input hidden (change)="submitPhoto($event)" #fileInput type="file" id="file">
                 </mat-card-actions>
             </div>
         </div>
