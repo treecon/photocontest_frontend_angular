@@ -6,10 +6,10 @@
     <mat-card-title>{{ data ? data.user.firstName : '' }} {{ data ? data.user.lastName : ''}}</mat-card-title>
     <mat-card-subtitle>Dog Breed</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image [src]="data ? 'http://localhost:3000/static/' + data.imageURL : 'https://material.angular.io/assets/img/examples/shiba2.jpg'" alt="">
-  <mat-card-content>
-  </mat-card-content>
-  <mat-card-actions>
+  <img class="aspect-square max-w-screen-sm" mat-card-image [src]="data ? 'http://localhost:3000/static/' + data.imageURL : 'https://material.angular.io/assets/img/examples/shiba2.jpg'" alt="">
+  <!-- <mat-card-content>
+  </mat-card-content> -->
+  <mat-card-actions *ngIf="isWithActions">
     <div class="w-full flex items-center justify-between">
       <div class="flex items-center">
         <button [disabled]="data ? data.isVoted : false" (click)="vote('UP')" mat-mini-fab color="basic" aria-label="Upvote">
