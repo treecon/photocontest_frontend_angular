@@ -12,7 +12,7 @@ export class PhotosService {
   constructor(private httpClient: HttpClient) { }
 
   getPhotos(size: number, isPublic = false) {
-    const url = isPublic ? `http://localhost:3000/api/photo/public?size=${size}` : `http://localhost:3000/api/photo?size=${size}`;
+    const url = isPublic ? `/api/photo/public?size=${size}` : `/api/photo?size=${size}`;
 
     return this.httpClient.get<ServerResponse<Photo[]>>(url)
       .pipe(take(1));
@@ -24,12 +24,12 @@ export class PhotosService {
     // formData.append('photo', new Blob([photo]), filename);
     formData.append('photo', photo);
 
-    return this.httpClient.post<ServerResponse<null>>('http://localhost:3000/api/photo', formData)
+    return this.httpClient.post<ServerResponse<null>>('/api/photo', formData)
       .pipe(take(1));
   }
 
   vote(photoID: string, type: 'UP' | 'DOWN') {
-    return this.httpClient.post<ServerResponse<null>>(`http://localhost:3000/api/photo/${photoID}/${type.toLowerCase()}`, null)
+    return this.httpClient.post<ServerResponse<null>>(`/api/photo/${photoID}/${type.toLowerCase()}`, null)
       .pipe(take(1));
   }
 }
