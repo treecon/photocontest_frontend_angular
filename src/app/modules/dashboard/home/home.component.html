@@ -1,35 +1,27 @@
-<div class="mx-3 my-3">
+<!-- <div class="mx-3 my-3">
     <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
     <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
-</div>
+</div> -->
 
-<div class="mx-3 my-3">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>Actions Buttons</mat-card-title>
-            <mat-card-subtitle>Start</mat-card-subtitle>
+<div class="mx-3 my-10">
+    <mat-card class="py-5">
+        <mat-card-header class="flex justify-center text-center">
+            <mat-card-title>Participate!</mat-card-title>
+            <mat-card-subtitle>Upload your own photo</mat-card-subtitle>
         </mat-card-header>
-        <mat-card-actions>
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
-        </mat-card-actions>
-    </mat-card>
-    <br>
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>Actions Buttons</mat-card-title>
-            <mat-card-subtitle>End</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-actions align="end">
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
+        <mat-card-actions class="flex justify-center">
+            <button class="mt-5" color="primary" type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+            <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
         </mat-card-actions>
     </mat-card>
 </div>
 
-<div class="grid grid-cols-2 md:grid-cols-4 mx-3 gap-3" *ngIf="photos">
-    <app-photo-card *ngFor="let photo of photos; trackBy: trackByPhotoID" [data]="photo" [isWithActions]="true"
-        (voted)="loadPhotos()"></app-photo-card>
+<div class="grid grid-cols-2 md:grid-cols-4 mx-3 gap-x-3 gap-y-5 pb-5" *ngIf="photos">
+    <app-photo-card
+        *ngFor="let photo of photos;"
+        [data]="photo" [isWithActions]="true"
+        (voted)="loadPhotos()"
+    ></app-photo-card>
 </div>
 
 <!-- {{ photos | async | json }} -->
