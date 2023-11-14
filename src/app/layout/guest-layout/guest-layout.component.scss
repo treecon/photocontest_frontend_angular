@@ -1,3 +1,9 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
+.my-drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+}

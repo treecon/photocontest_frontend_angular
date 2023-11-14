@@ -11,6 +11,7 @@ import { MatDialogModule  } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatFormFieldModule,
     MatInputModule,
     MatSidenavModule,
+    MatListModule,
   ],
   exports: [
     PhotoCardComponent,
@@ -37,6 +39,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatFormFieldModule,
     MatInputModule,
     MatSidenavModule,
+    MatListModule,
   ],
 })
 export class SharedModule { }
