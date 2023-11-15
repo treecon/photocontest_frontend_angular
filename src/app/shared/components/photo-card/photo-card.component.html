@@ -11,7 +11,7 @@
     <mat-card-title>{{ data ? data.user.firstName : '' }} {{ data ? data.user.lastName : ''}}</mat-card-title>
     <mat-card-subtitle>{{ data ? data.user.email : '' }}</mat-card-subtitle>
   </mat-card-header>
-  <img class="aspect-square max-w-screen-sm object-cover" mat-card-image [src]="data ? '/static/' + data.imageURL : 'https://material.angular.io/assets/img/examples/shiba2.jpg'" alt="">
+  <img class="aspect-square max-w-screen-sm object-cover" mat-card-image [src]="data ? 'http://85.208.48.165:3005/static/' + data.imageURL : 'https://material.angular.io/assets/img/examples/shiba2.jpg'" alt="">
   <!-- <mat-card-content>
   </mat-card-content> -->
   <mat-card-actions>
