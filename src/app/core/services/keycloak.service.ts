@@ -58,8 +58,8 @@ export class KeycloakService {
     }, {});
 
     if (this.isLoginStateUUIDValid(params['state'])) {
-      // todo
-      await this.getTokensByCode(params['code'], 'http://localhost:4200/dashboard', true);
+      // todo, the URL should not be hardcoded
+      await this.getTokensByCode(params['code'], 'http://85.208.48.165/myapp/dashboard', true);
     } else {
       this.store.dispatch(AuthActions.setInitialCheckCompleted());
     }
@@ -73,7 +73,8 @@ export class KeycloakService {
     return isValid;
   }
 
-  redirectToKeycloakLoginPage(redirectURI: string = 'http://localhost:4200/dashboard') {
+  // the URL should not be hardcoded, todo
+  redirectToKeycloakLoginPage(redirectURI: string = 'http://85.208.48.165/myapp/dashboard') {
     if (window.location.hash.includes('session_state')) return;
 
     const stateUUID = uuid();
