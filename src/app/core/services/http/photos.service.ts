@@ -18,7 +18,7 @@ export class PhotosService {
   baseURL = 'http://85.208.48.165:3005';
 
   getPhotos(size: number, isPublic = false) {
-    const url = isPublic ? `${this.baseURL}/api/photo/public?size=${size}` : `/api/photo?size=${size}`;
+    const url = isPublic ? `${this.baseURL}/api/photo/public?size=${size}` : `${this.baseURL}/api/photo?size=${size}`;
 
     return this.httpClient.get<ServerResponse<Photo[]>>(url)
       .pipe(take(1));
